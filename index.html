@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Note Companion</title>
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<!-- Delete Modal-->
+<div id="deleteModal" class="modal hidden">
+    <div class="modal-content">
+        <h3>Delete Note?</h3>
+        <p>This action cannot be undone.</p>
+
+        <div class="modal-actions">
+            <button id="cancelDelete">Cancel</button>
+            <button id="confirmDelete" class="danger">Delete</button>
+        </div>
+    </div>
+</div>
+
+<!-- Lock Modal-->
+<div id="lockModal" class="modal hidden">
+    <div class="modal-content">
+        <h3>Lock Note</h3>
+
+        <input type="password" id="lockPassword" placeholder="Enter password">
+        <input type="password" id="confirmPassword" placeholder="Confirm password">
+
+        <div class="modal-actions">
+            <button onclick="closeLockModal()">Cancel</button>
+            <button onclick="confirmLock()">Lock</button>
+        </div>
+    </div>
+</div>
+
+<!-- Unlock Modal-->
+<div id="unlockModal" class="modal hidden">
+    <div class="modal-content">
+        <h3>Unlock Note</h3>
+
+        <input type="password" id="unlockPassword" placeholder="Enter password">
+
+        <div class="modal-actions">
+            <button onclick="closeUnlockModal()">Cancel</button>
+            <button onclick="confirmUnlock()">Unlock</button>
+        </div>
+    </div>
+</div>
+
+
+<body>
+
+    <header>
+        <span>Your Note Companion</span>
+        <button id="logoutBtn">Logout</button>
+    </header>
+    
+
+    <div class="container">
+
+        <!-- LEFT PANEL -->
+        <div class="sidebar">
+            <button onclick="createNote()">+ New Note</button>
+            <div class="note-list" id="noteList"></div>
+        </div>
+
+        <!-- CENTER PANEL -->
+        <div class="editor-section">
+            <input id="noteTitle" class="title-input" placeholder="Enter Note Title">
+            
+            <div id="editor" contenteditable="true" class="editor"></div>
+        </div>
+
+        <!-- RIGHT PANEL -->
+        <div class="tools">
+            <button onclick="openDeleteModal(currentIndex)" style="margin-top:10px; background:#c0392b; color: whitesmoke;">
+                Delete Note
+            </button>
+            <br>
+            <button onclick="lockCurrentNote()">Lock Note</button> 🔒
+            <br><br>
+            <h4>Formatting</h4>
+            <button onclick="formatText('bold',this)">Bold</button>
+            <button onclick="formatText('italic',this)">Italic</button>
+            <button onclick="formatText('underline',this)">Underline</button>
+            <br>
+
+            <h4 style="margin-top:10px;">Font Size</h4>
+            <select onchange="changeFontSize(this.value)">
+                <script>
+                    for (let i = 8; i <= 40; i += 2) {
+                        document.write(`<option value="${i}">${i}px</option>`);
+                    }
+                </script>
+            </select>
+
+            <br>
+            <h4 style="margin-top:10px; margin-bottom: 5px;">Insert Media</h4>
+            <input type="file" id="mediaInput" accept="image/*,audio/*,video/*">
+
+            <br><br>
+
+            <button onclick="saveNote()">Save</button>
+            <span id="saveStatus" style="margin-left:auto; font-size:14px; color: rgba(); margin-left: 4px;">Saved</span>
+
+        </div>
+    </div>
+
+    <script src="js/state.js"></script>
+    <script type="module" src="js/firebase.js"></script>
+    <script type="module" src="js/firestore.js"></script>
+    <script src="js/editor.js"></script>
+    <script type="module" src="js/notes.js"></script>
+    <script src="js/media.js"></script>
+    <script src="js/autosave.js"></script>
+    <script src="js/confirm_delete.js"></script>
+    <script src="js/lock.js"></script>
+    <script type="module" src="js/app.js"></script>
+
+    <script type="module">
+        import { logout } from "./js/auth.js";
+        document.getElementById("logoutBtn").onclick = logout;
+    </script>
+
+</body>
+
+</html>
