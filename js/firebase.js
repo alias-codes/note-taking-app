@@ -2,7 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 const firebaseConfig = { 
-    apiKey: "import.meta.env.VITE_FIREBASE_API_KEY", 
+    apiKey: "AIzaSyDLtXfcqS-nCIQpgLbRnbpmwGvUNyIDoaE", 
     authDomain: "note-taking-app-77863.firebaseapp.com", 
     projectId: "note-taking-app-77863", 
     storageBucket: "note-taking-app-77863.firebasestorage.app", 
